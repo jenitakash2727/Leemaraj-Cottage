@@ -97,6 +97,10 @@ const Navbar = () => {
 
           {/* ── Auth Actions ────────────────── */}
           <div className="navbar__actions">
+            <button className="btn btn-primary hide-on-mobile" onClick={() => navigate('/rooms')}>
+              Book Now
+            </button>
+            
             {!token ? (
               <button
                 className="navbar__admin-btn hide-on-mobile"
@@ -106,20 +110,16 @@ const Navbar = () => {
                 <FiUser size={15} />
                 <span>Login</span>
               </button>
-            ) : isAdmin ? (
-              <>
-                <button className="navbar__admin-btn hide-on-mobile" onClick={() => navigate('/admin')}>
-                  Admin Dashboard
-                </button>
-                <button className="navbar__admin-btn hide-on-mobile" onClick={handleLogout}>
-                  Logout
-                </button>
-              </>
             ) : (
               <>
                 <button className="navbar__admin-btn hide-on-mobile" onClick={() => navigate('/my-bookings')}>
                   My Bookings
                 </button>
+                {isAdmin && (
+                  <button className="navbar__admin-btn hide-on-mobile" onClick={() => navigate('/admin')}>
+                    Admin Dashboard
+                  </button>
+                )}
                 <button className="navbar__admin-btn hide-on-mobile" onClick={handleLogout}>
                   Logout
                 </button>
@@ -175,23 +175,6 @@ const Navbar = () => {
               <FiUser size={16} style={{ marginRight: '8px' }} />
               Login
             </button>
-          ) : isAdmin ? (
-            <>
-              <button
-                className="btn btn-outline w-full"
-                onClick={() => { navigate('/admin'); setIsMenuOpen(false); }}
-                style={{ marginBottom: 'var(--space-3)' }}
-              >
-                Admin Dashboard
-              </button>
-              <button
-                className="btn btn-outline w-full"
-                onClick={() => { handleLogout(); setIsMenuOpen(false); }}
-                style={{ marginBottom: 'var(--space-3)', color: '#DC2626', borderColor: 'rgba(220,38,38,0.2)' }}
-              >
-                Logout
-              </button>
-            </>
           ) : (
             <>
               <button
@@ -201,6 +184,15 @@ const Navbar = () => {
               >
                 My Bookings
               </button>
+              {isAdmin && (
+                <button
+                  className="btn btn-outline w-full"
+                  onClick={() => { navigate('/admin'); setIsMenuOpen(false); }}
+                  style={{ marginBottom: 'var(--space-3)' }}
+                >
+                  Admin Dashboard
+                </button>
+              )}
               <button
                 className="btn btn-outline w-full"
                 onClick={() => { handleLogout(); setIsMenuOpen(false); }}

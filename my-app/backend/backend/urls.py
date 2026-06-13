@@ -6,7 +6,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from cottage.views import (
     RoomViewSet, RoomImageViewSet, GroupPackageViewSet, GroupPackageImageViewSet, 
     AmenityViewSet, PolicyViewSet, BookingViewSet, ContactEnquiryViewSet, 
-    CheckAvailabilityView, AdminStatsView, GoogleLoginView, SupabaseLoginView
+    CheckAvailabilityView, AdminStatsView, GoogleLoginView, SupabaseLoginView, MyBookingsView
 )
 from gallery.views import GalleryImageViewSet
 
@@ -34,6 +34,7 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api/admin/', include(admin_router.urls)),
     path('api/admin/stats/', AdminStatsView.as_view()),
+    path('api/my-bookings/', MyBookingsView.as_view(), name='my_bookings'),
     path('api/check-availability/', CheckAvailabilityView.as_view()),
     path('api/auth/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/auth/refresh/', TokenRefreshView.as_view(), name='token_refresh'),

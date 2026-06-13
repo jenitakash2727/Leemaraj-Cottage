@@ -2,6 +2,7 @@ from rest_framework import viewsets, status, views, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.core.mail import send_mail
+from django.db import models
 from decouple import config
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from .models import Room, RoomImage, GroupPackage, GroupPackageImage, Amenity, Policy, Booking, ContactEnquiry
@@ -316,6 +317,16 @@ class BookingViewSet(viewsets.ModelViewSet):
                 return Response({'error': "Cannot confirm because another booking conflicts with these dates."}, status=status.HTTP_400_BAD_REQUEST)
 
         return super().update(request, *args, **kwargs)
+
+class MyBookingsView(views.APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        user_email = request.user.email
+        # Match bookings by email or by user foreign key
+        bookings = Booking.objects.filter(models.Q(email=user_email) | models.Q(user=request.user)).order_by('-created_at')
+        serializer = BookingSerializer(bookings, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class ContactEnquiryViewSet(viewsets.ModelViewSet):
     queryset = ContactEnquiry.objects.all()
