@@ -1,0 +1,27 @@
+.page, .gallery-page { padding: 140px 24px 80px; min-height: 100vh; background: var(--bg-color); }
+.heading, .gallery-page-header h1 { text-align: center; font-size: 42px; color: var(--secondary); margin-bottom: 20px; font-weight: 500; }
+.filters, .category-filter { display: flex; justify-content: center; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
+.filters button, .filter-btn { background: transparent; color: var(--text-muted); border: 1px solid var(--border); padding: 10px 24px; border-radius: var(--radius-btn); cursor: pointer; transition: var(--transition); font-weight: 500; font-size: 15px; font-family: 'Inter', sans-serif; }
+.filters button:hover, .filter-btn:hover, .filter-btn.active { background: var(--secondary); color: #fff; border-color: var(--secondary); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+.gallery, .full-gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+.card, .gallery-card { background: var(--cards); border-radius: var(--radius); overflow: hidden; cursor: pointer; transition: var(--transition); box-shadow: var(--shadow-sm); border: 1px solid var(--border); display: flex; flex-direction: column; }
+.card:hover, .gallery-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
+.card img, .gallery-card-image img { width: 100%; height: 260px; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1); display: block; }
+.card:hover img, .gallery-card:hover img { transform: scale(1.08); }
+.card p, .gallery-card-info h3 { padding: 20px; text-align: center; font-weight: 500; color: var(--secondary); font-size: 17px; font-family: 'Inter', sans-serif; margin: 0; }
+/* Modal */
+.modal, .full-lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(32,48,64,0.95); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; z-index: 2000; padding: 20px; opacity: 1; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.modal-content, .lightbox-layout { background: var(--cards); border-radius: var(--radius); overflow: hidden; display: flex; max-width: 1000px; width: 100%; max-height: 90vh; position: relative; box-shadow: 0 24px 60px rgba(0,0,0,0.3); animation: slideUp 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
+@keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.modal-left, .lightbox-image { flex: 1.5; background: #000; }
+.modal-left img, .lightbox-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.modal-right, .lightbox-info { flex: 1; padding: 40px; overflow-y: auto; display: flex; flex-direction: column; justify-content: center; }
+.modal-right h2, .lightbox-info h2 { font-size: 32px; color: var(--secondary); margin-bottom: 16px; font-weight: 500; }
+.modal-right p, .lightbox-info p { color: var(--text-muted); margin-bottom: 24px; line-height: 1.7; font-size: 15px;}
+.modal-right b { color: var(--text-dark); font-weight: 500; }
+.modal-right button, .lightbox-close-btn { position: absolute; top: 20px; right: 20px; background: var(--bg-color); border: 1px solid var(--border); width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; transition: var(--transition); display: flex; align-items: center; justify-content: center; color: var(--text-dark); z-index: 10; }
+.modal-right button:hover, .lightbox-close-btn:hover { background: var(--border); }
+.book-now-btn { display: block; width: 100%; background: var(--primary); color: #fff; text-align: center; padding: 14px; border-radius: var(--radius-btn); text-decoration: none; font-weight: 500; margin-top: auto; transition: var(--transition); border: none; cursor: pointer; font-size: 15px; box-shadow: 0 4px 12px rgba(139,78,61,0.2); }
+.book-now-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(139,78,61,0.3); background: var(--primary-light); }
+@media (max-width: 968px) { .modal-content, .lightbox-layout { flex-direction: column; } .modal-left, .lightbox-image { height: 350px; flex: none; } .modal-right, .lightbox-info { padding: 30px; } .gallery { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); } }

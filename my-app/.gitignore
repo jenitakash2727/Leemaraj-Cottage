@@ -1,0 +1,11 @@
+.env
+__pycache__/
+*.pyc
+node_modules/
+build/
+dist/
+db.sqlite3
+media/
+gallery_images/
+.venv/
+venv/

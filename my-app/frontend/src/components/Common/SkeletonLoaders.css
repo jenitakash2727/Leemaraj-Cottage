@@ -1,0 +1,120 @@
+.skeleton {
+  background: var(--color-bg);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+}
+
+.skeleton::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    left: 100%;
+  }
+}
+
+.skeleton-img {
+  height: 50%;
+  background: var(--color-soft);
+  width: 100%;
+}
+
+.skeleton-content {
+  padding: var(--space-4);
+}
+
+.skeleton-title {
+  height: 24px;
+  background: var(--color-soft);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-3);
+  width: 80%;
+}
+
+.skeleton-text {
+  height: 14px;
+  background: var(--color-soft);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-2);
+}
+
+.w-100 { width: 100%; }
+.w-90 { width: 90%; }
+.w-80 { width: 80%; }
+.w-75 { width: 75%; }
+.w-70 { width: 70%; }
+.w-50 { width: 50%; }
+
+.skeleton-line {
+  height: 16px;
+  background: var(--color-soft);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-2);
+}
+
+.skeleton-gallery {
+  display: flex;
+  gap: 8px;
+  height: 400px;
+}
+
+.skeleton-main-img {
+  flex: 2;
+  background: var(--color-soft);
+  border-radius: var(--radius-xl);
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton-thumbs {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 8px;
+}
+
+.skeleton-thumb {
+  background: var(--color-soft);
+  border-radius: var(--radius-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton-box {
+  background: var(--color-soft);
+  border-radius: var(--radius-xl);
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton-info-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-8);
+}
+
+@media (max-width: 768px) {
+  .skeleton-gallery {
+    flex-direction: column;
+    height: auto;
+  }
+  .skeleton-main-img { height: 250px; }
+  .skeleton-thumbs { grid-template-columns: 1fr 1fr; height: 100px; }
+  .skeleton-info-grid { grid-template-columns: 1fr; }
+}

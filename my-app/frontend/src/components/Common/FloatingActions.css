@@ -1,0 +1,47 @@
+.floating-actions {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  z-index: 90;
+}
+
+.float-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+}
+
+.float-btn:hover {
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+  color: white;
+}
+
+.float-call {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #8b4a30 100%);
+}
+
+.float-wa {
+  background: linear-gradient(135deg, #25D366 0%, #1da851 100%);
+}
+
+@media (max-width: 768px) {
+  .floating-actions {
+    bottom: 20px;
+    right: 20px;
+    gap: 12px;
+  }
+  .float-btn {
+    width: 52px;
+    height: 52px;
+  }
+}

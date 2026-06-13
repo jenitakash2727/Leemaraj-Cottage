@@ -1,0 +1,7 @@
+/* Cleaned */
+/* The primary form styling is now handled globally in App.css for consistency. */
+.contact-page { padding: 120px 24px 60px; min-height: 100vh; background: var(--bg-color); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 50px; max-width: 1000px; margin: 0 auto; }
+.contact-info { background: var(--primary-dark); color: var(--white); padding: 40px; border-radius: var(--radius); }
+.contact-info h3 { color: var(--accent-light); font-size: 1.8rem; margin-bottom: 20px; }
+@media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } }

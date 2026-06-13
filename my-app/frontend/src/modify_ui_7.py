@@ -1,0 +1,363 @@
+import os
+
+base_dir = r"e:\Desktop\Cottage\my-app\src"
+
+def write_file(filename, content):
+    path = os.path.join(base_dir, filename)
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(content)
+
+# 1. Rewrite Hero.jsx
+hero_jsx = """import React from 'react';
+import './Hero.css';
+import { useScrollReveal, CountUp } from './AnimationUtils';
+
+const Hero = ({ onBookNow }) => {
+  useScrollReveal();
+  
+  const scrollToAbout = () => {
+    const aboutSection = document.getElementById('about');
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <div className="hero-wrapper">
+      <section id="home" className="hero">
+        <div className="hero-background"></div>
+        <div className="hero-overlay"></div>
+        
+        <div className="hero-content reveal">
+          <span className="hero-tagline">Experience True Luxury</span>
+          <h1 className="hero-title">
+            Welcome to <span className="highlight">Leemaraj</span> Cottage
+          </h1>
+          <p className="hero-subtitle">
+            Your peaceful getaway • Complete privacy • Home away from home
+          </p>
+          <div className="hero-buttons">
+            <button className="btn-primary" onClick={onBookNow}>Book Now</button>
+            <button className="btn-outline" onClick={scrollToAbout}>Explore More</button>
+          </div>
+        </div>
+
+        <div className="hero-scroll" onClick={scrollToAbout}>
+          <span>Scroll to explore</span>
+          <div className="scroll-indicator"></div>
+        </div>
+      </section>
+
+      {/* Floating Stats Card */}
+      <div className="floating-stats-wrapper reveal reveal-delay-1">
+        <div className="floating-stats">
+          <div className="stat">
+            <span className="stat-number"><CountUp end={4.9} decimals={1} /></span>
+            <span className="stat-label">Guest Rating</span>
+          </div>
+          <div className="stat-divider"></div>
+          <div className="stat">
+            <span className="stat-number"><CountUp end={120} suffix="+" /></span>
+            <span className="stat-label">Happy Guests</span>
+          </div>
+          <div className="stat-divider"></div>
+          <div className="stat">
+            <span className="stat-number">24/7</span>
+            <span className="stat-label">Support</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Hero;
+"""
+write_file("Hero.jsx", hero_jsx)
+
+# 2. Rewrite Hero.css
+hero_css = """.hero-wrapper {
+  position: relative;
+  background: var(--bg-color);
+}
+
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  padding: 0 24px;
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('./House.jpeg') center/cover no-repeat;
+  z-index: 1;
+  animation: subtleZoom 30s infinite alternate ease-in-out;
+}
+
+@keyframes subtleZoom {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.1); }
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.35));
+  z-index: 2;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  max-width: 900px;
+  margin-top: -60px; /* Offset to center considering the floating stats at bottom */
+}
+
+.hero-tagline {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: #fff;
+  margin-bottom: 24px;
+  opacity: 0.9;
+}
+
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 72px;
+  font-weight: 500;
+  color: #ffffff;
+  line-height: 1.1;
+  margin-bottom: 24px;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+.hero-title .highlight {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+}
+
+.hero-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 48px;
+  line-height: 1.6;
+  font-weight: 400;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Ensure these override any weird global defaults */
+.hero .btn-primary {
+  width: auto;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: #fff;
+  border: none;
+  padding: 16px 48px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: var(--radius-btn);
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.hero .btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+  filter: brightness(1.1);
+}
+
+.hero .btn-outline {
+  width: auto;
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.7);
+  padding: 16px 48px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: var(--radius-btn);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.hero .btn-outline:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: #fff;
+  transform: translateY(-3px);
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  text-align: center;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: var(--transition);
+}
+
+.hero-scroll:hover {
+  opacity: 1;
+}
+
+.hero-scroll span {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  color: #fff;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.scroll-indicator {
+  width: 1px;
+  height: 40px;
+  background: rgba(255,255,255,0.3);
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.scroll-indicator::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: #fff;
+  animation: scrollDown 2s infinite ease-in-out;
+}
+
+@keyframes scrollDown {
+  0% { transform: translateY(-100%); }
+  50% { transform: translateY(200%); }
+  100% { transform: translateY(200%); }
+}
+
+/* Floating Stats */
+.floating-stats-wrapper {
+  position: relative;
+  z-index: 20;
+  margin-top: -60px;
+  padding: 0 24px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 80px; /* Space before next section */
+}
+
+.floating-stats {
+  background: var(--cards);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 30px 40px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+  border: 1px solid var(--border);
+  width: 100%;
+  max-width: 900px;
+}
+
+.stat {
+  text-align: center;
+  flex: 1;
+}
+
+.stat-number {
+  display: block;
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 50px;
+  background: var(--border);
+}
+
+@media (max-width: 968px) {
+  .hero-title {
+    font-size: 56px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    height: 85vh;
+    min-height: 600px;
+  }
+  
+  .hero-title {
+    font-size: 42px;
+  }
+  
+  .hero-subtitle {
+    font-size: 16px;
+    margin-bottom: 32px;
+  }
+  
+  .floating-stats {
+    flex-direction: column;
+    gap: 30px;
+    padding: 30px;
+  }
+  
+  .stat-divider {
+    width: 50px;
+    height: 1px;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .hero .btn-primary, .hero .btn-outline {
+    width: 100%;
+  }
+}
+"""
+write_file("Hero.css", hero_css)
+print("Hero redesign generated")

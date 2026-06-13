@@ -1,0 +1,315 @@
+/* Import Playfair Display */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+.lux-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  color: #fff;
+}
+
+.lux-hero__bg {
+  position: absolute;
+  inset: 0;
+  background-image: url("https://res.cloudinary.com/dvlr6tukk/image/upload/v1780819958/House_oto8a3.webp");
+  background-size: cover;
+  background-position: 65% center;
+  background-repeat: no-repeat;
+  z-index: 0;
+  animation: luxZoom 30s linear infinite alternate;
+}
+
+@keyframes luxZoom {
+  0% { transform: scale(1.0); }
+  100% { transform: scale(1.06); }
+}
+
+.lux-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(6,15,30,0.80) 0%,
+    rgba(6,15,30,0.55) 30%,
+    rgba(6,15,30,0.20) 100%
+  );
+  z-index: 1;
+}
+
+.lux-hero__content-wrapper {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.lux-hero__content {
+  max-width: 600px;
+  text-align: left;
+  animation: fadeUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  padding-top: 120px;
+  padding-bottom: 220px;
+}
+
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.lux-hero__label {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #D9A441;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.lux-hero__line {
+  display: inline-block;
+  width: 40px;
+  height: 2px;
+  background-color: #D9A441;
+  margin-right: 16px;
+}
+
+.lux-hero__title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 1.05;
+  color: #ffffff;
+  margin-bottom: 24px;
+}
+
+.lux-hero__title-line {
+  display: block;
+}
+
+.lux-hero__title-line:nth-child(1) {
+  animation: slideUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s both;
+}
+.lux-hero__title-line:nth-child(2) {
+  animation: slideUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.4s both;
+}
+
+@keyframes slideUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.lux-hero__desc {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+  max-width: 550px;
+  margin-bottom: 40px;
+  animation: fadeUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.6s both;
+}
+
+.lux-hero__actions {
+  display: flex;
+  gap: 20px;
+  animation: fadeUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.8s both;
+}
+
+.lux-btn {
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 0 36px;
+  height: 56px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.lux-btn-primary {
+  background: linear-gradient(135deg, #E2B659 0%, #C89128 100%);
+  color: #111;
+  border: none;
+}
+
+.lux-btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.lux-btn-secondary {
+  background: transparent;
+  color: #fff;
+  border: 2px solid #fff;
+}
+
+.lux-btn-secondary:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Feature Bar */
+.lux-hero__features-container {
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 3;
+  animation: slideUpBar 1s cubic-bezier(0.2, 0.8, 0.2, 1) 1s both;
+}
+
+@keyframes slideUpBar {
+  0% { opacity: 0; transform: translateY(50px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.lux-hero__features {
+  width: 85%;
+  max-width: 1200px;
+  background: rgba(6, 20, 40, 0.65);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 32px;
+  gap: 24px;
+}
+
+.lux-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  transition: transform 0.3s ease;
+}
+
+.lux-feature:hover {
+  transform: translateY(-4px);
+}
+
+.lux-feature__icon {
+  font-size: 36px;
+  color: #D9A441;
+  flex-shrink: 0;
+}
+
+.lux-feature__text h4 {
+  font-family: var(--font-heading), 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 8px 0;
+}
+
+.lux-feature__text p {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .lux-hero {
+    min-height: 90vh;
+  }
+  .lux-hero__title {
+    font-size: 52px;
+  }
+  .lux-hero__features {
+    width: 95%;
+    padding: 24px;
+  }
+  .lux-feature__icon {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .lux-hero__overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(6,15,30,0.6) 0%,
+      rgba(6,15,30,0.85) 100%
+    );
+  }
+  
+  .lux-hero__content {
+    text-align: center;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 100px;
+    padding-bottom: 260px;
+  }
+
+  .lux-hero__label {
+    justify-content: center;
+  }
+
+  .lux-hero__line {
+    display: none;
+  }
+
+  .lux-hero__features {
+    grid-template-columns: repeat(2, 1fr);
+    border-radius: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .lux-hero {
+    min-height: 85vh;
+  }
+  
+  .lux-hero__title {
+    font-size: 42px;
+  }
+  
+  .lux-hero__desc {
+    font-size: 16px;
+  }
+
+  .lux-hero__actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .lux-btn {
+    width: 100%;
+  }
+
+  .lux-hero__features {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .lux-feature__icon {
+    font-size: 24px;
+  }
+
+  .lux-feature__text h4 {
+    font-size: 16px;
+  }
+
+  .lux-feature__text p {
+    font-size: 12px;
+  }
+  
+  .lux-hero__content {
+    padding-top: 80px;
+    padding-bottom: 300px;
+  }
+}
