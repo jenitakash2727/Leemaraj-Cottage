@@ -71,25 +71,11 @@ MIDDLEWARE = [
 SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
 
 # ── CORS ───────────────────────────────────────────────────────────────────────
-# Do NOT use CORS_ALLOW_ALL_ORIGINS=True in production.
-# Explicitly list the Vercel frontend origin and any local dev origins.
+# Allow all origins to prevent strict matching issues with Vercel previews/production.
+# Django-cors-headers will securely echo the requested Origin back.
 
-CORS_ALLOW_ALL_ORIGINS = False
-
-CORS_ALLOWED_ORIGINS = [
-    # Vercel production — update this to your exact Vercel domain once deployed
-    'https://leemaraj-cottage.vercel.app',
-    # Vercel preview deploys (pattern — add specific preview URLs here if needed)
-    # Local development
-    'http://localhost:3000',
-    'http://127.0.0.1:3000',
-    'http://localhost:3001',
-]
-
-# Allow any *.vercel.app domain (for preview deploys)
-CORS_ALLOWED_ORIGIN_REGEXES = [
-    r'^https://.*\.vercel\.app$',
-]
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOW_CREDENTIALS = True
 
