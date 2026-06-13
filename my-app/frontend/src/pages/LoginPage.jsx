@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import { supabaseLogin } from '../services/api';
 import { InlineError } from '../components/Common/LoadingSpinner';
@@ -9,21 +9,26 @@ import { FcGoogle } from 'react-icons/fc';
 const LoginPage = () => {
   useScrollReveal();
   const navigate = useNavigate();
+  const location = useLocation();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  const from = location.state?.from?.pathname + (location.state?.from?.search || '') || null;
 
   // 1. Check if user is already logged into Django
   useEffect(() => {
     const token = localStorage.getItem('access_token');
     const isAdmin = localStorage.getItem('is_admin') === 'true';
     if (token) {
-      if (isAdmin) {
+      if (from) {
+        navigate(from);
+      } else if (isAdmin) {
         navigate('/admin');
       } else {
         navigate('/');
       }
     }
-  }, [navigate]);
+  }, [navigate, from]);
 
   // 2. Check for Supabase session after redirect
   useEffect(() => {
@@ -51,7 +56,9 @@ const LoginPage = () => {
             if (finalName) localStorage.setItem('admin_name', finalName);
             if (finalEmail) localStorage.setItem('admin_email', finalEmail);
             
-            if (res.data.role === 'admin') {
+            if (from) {
+              navigate(from);
+            } else if (res.data.role === 'admin') {
               localStorage.setItem('is_admin', 'true');
               navigate('/admin');
             } else {

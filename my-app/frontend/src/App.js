@@ -69,7 +69,6 @@ function App() {
         <Route path="/packages"       element={<Navigate to="/group-booking" replace />} />
         <Route path="/amenities"      element={<AmenitiesPage />} />
         <Route path="/gallery"        element={<GalleryPage />} />
-        <Route path="/checkout"       element={<CheckoutPage />} />
         <Route path="/booking"        element={<Navigate to="/checkout" replace />} />
         <Route path="/booking-success" element={<BookingSuccessPage />} />
         <Route path="/contact"        element={<ContactPage />} />
@@ -77,6 +76,7 @@ function App() {
 
         {/* Customer Routes (Protected) */}
           <Route element={<ProtectedRoute />}>
+            <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/my-bookings" element={<MyBookingsPage />} />
           </Route>
         </Route>

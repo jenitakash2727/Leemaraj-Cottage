@@ -1,12 +1,13 @@
 import React from 'react';
-import { Navigate, Outlet, Link } from 'react-router-dom';
+import { Navigate, Outlet, Link, useLocation } from 'react-router-dom';
 
 export const ProtectedRoute = ({ adminOnly = false }) => {
   const token = localStorage.getItem('access_token');
   const isAdmin = localStorage.getItem('is_admin') === 'true';
+  const location = useLocation();
   
   if (!token) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
   if (adminOnly && !isAdmin) {

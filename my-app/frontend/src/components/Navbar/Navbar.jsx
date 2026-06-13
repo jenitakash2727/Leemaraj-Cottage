@@ -19,6 +19,7 @@ const navItems = [
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen]   = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isScrolled, setIsScrolled]   = useState(false);
   const navigate  = useNavigate();
   const location  = useLocation();
@@ -29,12 +30,14 @@ const Navbar = () => {
   const handleLogout = async () => {
     await supabase.auth.signOut();
     localStorage.clear();
+    setIsDropdownOpen(false);
     navigate('/');
   };
 
   // Close mobile menu on route change
   useEffect(() => {
     setIsMenuOpen(false);
+    setIsDropdownOpen(false);
   }, [location.pathname]);
 
   // Scroll-based shadow
@@ -60,6 +63,17 @@ const Navbar = () => {
   const handleOverlayClick = useCallback(() => setIsMenuOpen(false), []);
 
   const toggleMenu = () => setIsMenuOpen(prev => !prev);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isDropdownOpen && !event.target.closest('.navbar__dropdown-container')) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isDropdownOpen]);
 
   return (
     <>
@@ -103,27 +117,32 @@ const Navbar = () => {
             
             {!token ? (
               <button
-                className="navbar__admin-btn hide-on-mobile"
+                className="btn btn-outline hide-on-mobile"
                 onClick={() => navigate('/login')}
+                style={{ padding: '8px 16px', display: 'flex', alignItems: 'center', gap: '8px' }}
                 aria-label="Login"
               >
                 <FiUser size={15} />
                 <span>Login</span>
               </button>
             ) : (
-              <>
-                <button className="navbar__admin-btn hide-on-mobile" onClick={() => navigate('/my-bookings')}>
-                  My Bookings
+              <div className="navbar__dropdown-container hide-on-mobile">
+                <button className="navbar__dropdown-trigger" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+                  <div className="avatar-placeholder"><FiUser size={16} /></div>
                 </button>
-                {isAdmin && (
-                  <button className="navbar__admin-btn hide-on-mobile" onClick={() => navigate('/admin')}>
-                    Admin Dashboard
-                  </button>
+                {isDropdownOpen && (
+                  <div className="navbar__dropdown-menu">
+                    <button className="dropdown-item" onClick={() => { navigate('/my-bookings'); setIsDropdownOpen(false); }}>My Bookings</button>
+                    {isAdmin && (
+                      <button className="dropdown-item" onClick={() => { navigate('/admin'); setIsDropdownOpen(false); }}>
+                        Admin Dashboard
+                      </button>
+                    )}
+                    <div className="dropdown-divider"></div>
+                    <button className="dropdown-item logout-text" onClick={handleLogout}>Logout</button>
+                  </div>
                 )}
-                <button className="navbar__admin-btn hide-on-mobile" onClick={handleLogout}>
-                  Logout
-                </button>
-              </>
+              </div>
             )}
 
             {/* ── Hamburger ────────────────────────── */}
