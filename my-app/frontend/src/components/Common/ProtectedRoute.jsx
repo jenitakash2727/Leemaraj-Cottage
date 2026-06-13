@@ -1,9 +1,10 @@
 import React from 'react';
 import { Navigate, Outlet, Link, useLocation } from 'react-router-dom';
+import { getAuthToken, getIsAdmin } from '../../utils/auth';
 
 export const ProtectedRoute = ({ adminOnly = false }) => {
-  const token = localStorage.getItem('access_token');
-  const isAdmin = localStorage.getItem('is_admin') === 'true';
+  const token = getAuthToken();
+  const isAdmin = getIsAdmin();
   const location = useLocation();
   
   if (!token) {

@@ -5,6 +5,7 @@ import {
   FiImage, FiCalendar, FiPhone, FiMenu, FiX, FiUser
 } from 'react-icons/fi';
 import { supabase } from '../../supabaseClient';
+import { getAuthToken, getIsAdmin, clearAuth } from '../../utils/auth';
 import './Navbar.css';
 
 const navItems = [
@@ -24,12 +25,12 @@ const Navbar = () => {
   const navigate  = useNavigate();
   const location  = useLocation();
 
-  const token = localStorage.getItem('access_token');
-  const isAdmin = localStorage.getItem('is_admin') === 'true';
+  const token = getAuthToken();
+  const isAdmin = getIsAdmin();
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    localStorage.clear();
+    clearAuth();
     setIsDropdownOpen(false);
     navigate('/');
   };

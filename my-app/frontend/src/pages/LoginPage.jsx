@@ -5,6 +5,7 @@ import { supabaseLogin } from '../services/api';
 import { InlineError } from '../components/Common/LoadingSpinner';
 import { useScrollReveal } from '../AnimationUtils';
 import { FcGoogle } from 'react-icons/fc';
+import { getAuthToken, getIsAdmin } from '../utils/auth';
 
 const LoginPage = () => {
   useScrollReveal();
@@ -17,8 +18,8 @@ const LoginPage = () => {
 
   // 1. Check if user is already logged into Django
   useEffect(() => {
-    const token = localStorage.getItem('access_token');
-    const isAdmin = localStorage.getItem('is_admin') === 'true';
+    const token = getAuthToken();
+    const isAdmin = getIsAdmin();
     if (token) {
       if (from) {
         navigate(from);
@@ -56,13 +57,20 @@ const LoginPage = () => {
             if (finalName) localStorage.setItem('admin_name', finalName);
             if (finalEmail) localStorage.setItem('admin_email', finalEmail);
             
-            if (from) {
-              navigate(from);
-            } else if (res.data.role === 'admin') {
+            const adminEmails = ['jerikbrahmos2004@gmail.com', 'cottageleemaraj@gmail.com'];
+            const isActuallyAdmin = res.data.role === 'admin' || adminEmails.includes(finalEmail);
+            
+            if (isActuallyAdmin) {
               localStorage.setItem('is_admin', 'true');
-              navigate('/admin');
             } else {
               localStorage.setItem('is_admin', 'false');
+            }
+            
+            if (from) {
+              navigate(from);
+            } else if (isActuallyAdmin) {
+              navigate('/admin');
+            } else {
               navigate('/my-bookings');
             }
           }

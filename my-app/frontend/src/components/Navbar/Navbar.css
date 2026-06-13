@@ -91,6 +91,7 @@
 .navbar__menu {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: var(--space-1);
   flex: 1;
   list-style: none;
